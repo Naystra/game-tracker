@@ -1,0 +1,57 @@
+.stats-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.stats-title {
+    color: #00ffff;
+    margin-bottom: 1rem;
+}
+
+.stats-total {
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.stats-total span {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+.stats-card {
+    background-color: #121212;
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow:  0 0 25px rgba(0, 2555, 255, 0.12);
+}
+
+.stats-card h3 {
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+/* Wrapper commun aux graphiques */
+
+.chart-wrapper {
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+/* Bar chart plus petit */
+
+.chart-wrapper.average {
+    max-width: 420px;
+}
+
+
+/* Responsive */ 
+
+@media (max-width: 768px) {
+    .stats-container {
+        padding: 1rem;
+    }
+}

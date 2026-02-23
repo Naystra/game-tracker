@@ -1,0 +1,230 @@
+.profile-header {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  background: linear-gradient(145deg, #141414, #0f0f0f);
+  border-radius: 18px;
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+
+.profile-avatar-large {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00ffff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+
+.profile-info {
+  flex: 1;
+  min-width: 280px;
+}
+
+
+.profile-info h1 {
+  font-size: 2.2rem;
+  color: #00ffff;
+  margin-bottom: 1rem;
+}
+
+.profile-quick-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.profile-quick-stats span {
+  background: #0f0f0f;
+  padding: 0.4rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  font-size: 0.9rem;
+  color: #eaeaea;
+}
+
+
+.bio-textarea {
+  width: 100%;
+  background: #0c0c0c;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  color: #ffffff;
+  resize: none;
+  margin-bottom: 1rem;
+  transition: 0.3s ease;
+}
+
+.bio-textarea:focus {
+  outline: none;
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+
+.save-bio-btn {
+  background: transparent;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.save-bio-btn:hover {
+  background: #00ffff;
+  color: black;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.social-links {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+
+.social-links a {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.3s ease;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #00ffff;
+  background: #0f0f0f;
+}
+
+
+.social-links a:hover {
+  background: #00ffff;
+  color: black;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+
+
+
+
+.profile-section {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #161616;
+  border-radius: 12px;
+  border: 1px solid #00ffff30;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+}
+
+
+
+.profile-section h2 {
+  color: #00ffff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+
+
+.top-games, .low-games, .favorites {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+.top-game, .low-game, .favorite-game {
+  background-color: #0f0f0f;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #00ffff30;
+  text-align: center;
+  width: 140px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+
+.top-game img, .low-game img, .favorite-game img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+
+.top-game p, .low-game p, .favorite-game p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #e5e5e5;
+}
+
+
+.top-game:hover, .low-game:hover, .favorite-game:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.15);
+}
+
+
+
+.profile-section ul {
+  list-style: none;
+  padding: 0;
+  color: #e5e5e5;
+  text-align: center;
+}
+
+
+.profile-section ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #00ffff20;
+}
+
+
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+.badge {
+  background-color: #0f0f0f;
+  color: #00ffff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  border: 1px solid #00ffff50;
+}
+
+
+
+/*  Responsive */
+@media (max-width: 700px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-info h1 {
+    text-align: center;
+  }
+}

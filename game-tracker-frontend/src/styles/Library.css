@@ -1,0 +1,132 @@
+.library-title {
+    text-align: center;
+    margin: 2rem 0;
+    color: #00ffff;
+    letter-spacing: 1px;
+}
+
+.library-empty {
+    text-align: center;
+    color: #ccc;
+}
+
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem 2rem;
+}
+
+.game-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+}
+
+.game-card {
+    background-color: #121212;
+    border-radius: 14px;
+    padding: 1.2rem;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    text-align: center;
+}
+
+.game-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.game-card a:hover h3 {
+  color: #00bcd4;
+}
+
+.game-card h3 {
+    color: #ffffff;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    
+}
+
+.game-field {
+    margin-bottom: 0.8rem;
+    text-align: left;
+}
+
+.game-field label {
+    display: block;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0.3rem;
+}
+
+.game-card select,
+.game-card input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+.delete-btn {
+    margin-top: 0.8rem;
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ff4d4d;
+    background: transparent;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #ff4d4d;
+    color: #000;
+}
+
+.library-filters {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0 2rem;
+    flex-wrap: wrap;
+}
+
+.library-filters input,
+.library-filters select {
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid #00ffff;
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    font-size: 0.95rem;
+    outline: none;
+    min-width: 220px;
+}
+
+.library-filters input::placeholder {
+    color: #888;
+}
+
+.library-filters input:focus,
+.library-filters select:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.library-filters select {
+    cursor: pointer;
+}
+
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .library-grid {
+        grid-template-columns: 1fr;
+    }
+}

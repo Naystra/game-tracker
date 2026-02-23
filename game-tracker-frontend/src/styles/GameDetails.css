@@ -1,0 +1,55 @@
+.game-details-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    color: #e5e5e5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.game-details-container h1 {
+    text-align: center;
+    color: #00ffff;
+    margin-bottom: 1.5rem;
+}
+
+.game-details-container img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.game-details-container p {
+    background-color: #161616;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.game-details-container strong {
+    color:#00ffff;
+}
+
+.game-details-container span {
+    display: block;
+    margin-top: 0.5rem;
+    color: #ccc;
+}
+
+
+
+
+/* Responsive */
+@media (max-width: 600px) {
+    .game-details-container img {
+        max-height: 300px;
+    }
+
+    .game-details-container {
+        padding: 0 1rem;
+    }
+}

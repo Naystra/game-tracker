@@ -1,0 +1,63 @@
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "../styles/Login.css";
+
+
+
+const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await axios.post("http://localhost:5000/api/auth/login", {
+                email,
+                password
+            });
+
+            // Stockage du token
+            localStorage.setItem("token", res.data.token);
+
+            // Stocker l'utilisateur
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+
+            // Redirection
+            navigate("/stats");
+        } catch (err) {
+            console.error(err);
+            alert("Identtifiants invalides")
+        }
+    };
+
+
+    return (
+        <>  
+        <Header />
+            <div className="login-container">
+                <div className="login-card">
+                    <h2>Connexion</h2>
+
+                    <form onSubmit={handleSubmit}>
+                        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                        <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                        <button type="submit">Se connecter</button>
+                    </form>
+
+                    <p className="login-register-text">Pas encore de compte ?</p>
+
+                    <button className="register-btn" type="button" onClick={() => navigate("/register")}>S'inscrire !</button>
+
+                </div>  
+            </div>   
+        <Footer />                 
+        </>        
+    );
+};
+
+export default Login;

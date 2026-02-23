@@ -1,0 +1,92 @@
+.home-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: #00ffff;
+}
+
+.home-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.home-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ccc;
+}
+
+.home-hero button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #00ffff, #00bcd4);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.home-hero button:hover {
+    transform: scale(1.05);
+}
+
+.home-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 3rem 2rem;
+}
+
+.home-card {
+    background-color: #121212;
+    padding: 2rem;
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.home-card h3 {
+    margin-bottom: 1rem;
+    color: #00ffff;
+}
+
+.home-card p {
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.home-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.3);
+}
+
+.home-hero-image {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto 0;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+    object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .home-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .home-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .home-hero h1 {
+        font-size: 2.2rem;
+    }
+}
