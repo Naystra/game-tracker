@@ -83,3 +83,51 @@
     background-color: #00ffff;
     color: #000;
 }
+
+
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .login-card {
+    width: 100%;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+
+  .login-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .login-card input,
+  .login-card button[type="submit"],
+  .register-btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .login-register-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-card {
+    padding: 1.5rem 1rem;
+    width: 100%;
+  }
+
+  .login-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .login-card input,
+  .login-card button[type="submit"],
+  .register-btn {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}

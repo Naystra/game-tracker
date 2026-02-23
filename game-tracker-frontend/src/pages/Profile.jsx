@@ -1,50 +1,57 @@
-import { useEffect, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { UserContext } from "../context/UserContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import "../Styles/Profile.css";
 
+
 function Profile() {
-    const [user, setUser] = useState(null);
+    const { user, setUser } = useContext(UserContext);
     const [loading, setLoading] = useState(true);
     const [games, setGames] = useState([]);
     const [bio, setBio] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordLoading, setPasswordLoading] = useState(false);
     
 
     const token = localStorage.getItem("token");
 
-
+    // Fetch des jeux uniquement
     useEffect(() => {
-        const fetchProfile = async () => {
+            if (!token) return;
+
+            const fetchGames = async () => {
             try {
-                // Récupérer le user connecté
-                const res = await axios.get("http://localhost:5000/api/users/me", {headers: {Authorization: `Bearer ${token}`}});
-
-                setUser(res.data);
-                setBio(res.data.bio || "");
-
-
-                // Récupérer les jeux
-                const gamesRes = await axios.get("http://localhost:5000/api/games", {headers: { Authorization: `Bearer ${token}`}});
-
-                setGames(gamesRes.data);
-
+                const resGames = await axios.get("http://localhost:5000/api/games", {headers: { Authorization: `Bearer ${token}`}});
+                
+                setGames(resGames.data);                            
 
             } catch (err) {
                 console.error(err);
-                alert("Erreur chargement profil");
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchProfile();
+        fetchGames();
     }, [token]);
+    
+
+
+    // Initialiser la bio quand l'utilisateur la change
+    useEffect(() => {
+        if (user) setBio(user.bio || "");
+    }, [user]);
 
 
     if (loading) return <p>Chargement...</p>;
     if (!user) return <p>Utilisateur introuvable</p>
+
 
 
     // Stats calculées côté frontend
@@ -73,7 +80,6 @@ function Profile() {
     // Fonction pour upload des images
     const handleUpload = async () => {
         if (!selectedFile) return;
-
         const formData = new FormData();
         formData.append("avatar", selectedFile);
 
@@ -93,6 +99,47 @@ function Profile() {
     };
 
 
+
+    // Fonction pour modifier le mot de passe
+    const handleChangePassword = async () => {
+        if (!oldPassword || !newPassword || !confirmPassword) {
+            alert("Tous les champs sont obligatoires");
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert("Les nouveaux mots de passe ne correspondent pas");
+            return;
+        }
+
+        if (newPassword.length < 6) {
+            alert("Le mot de passe doit faire au moins 6 caractères");
+            return;
+        }
+
+        try {
+            setPasswordLoading(true);
+
+            await axios.put("http://localhost:5000/api/users/me/password",
+                { oldPassword, newPassword },
+                { headers: { Authorization: `Bearer ${token}`}}
+            );
+
+            alert("Mot de passe mis à jour avec succés !");
+
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+
+        } catch (err) {
+            console.error(err);
+            alert(err.response?.data?.message || "Erreur lors du chargement");
+        } finally {
+            setPasswordLoading(false);
+        }
+    };
+
+
     return (
         <>
             <Header />
@@ -101,8 +148,12 @@ function Profile() {
                 <img src={user?.avatar ? `http://localhost:5000/uploads/${user.avatar}` : `https://ui-avatars.com/api/?name=${user?.username}`} 
                 alt="avatar" className="profile-avatar-large" />
 
-                <input type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
-                <button onClick={handleUpload}>Changer l'avatar</button>
+
+                <div className="avatar-actions">
+                    <input type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                    <button onClick={handleUpload}>Changer l'avatar</button>
+                </div>
+
 
                 <div className="profile-info">
                     <div className="profile-quick-stats">
@@ -174,34 +225,32 @@ function Profile() {
             <div className="profile-section">
                 <h2>Badges</h2>
                 <div className="badges">
-                    {totalGames >= 30 && <span className="badge">Collectionneur</span>}
+                    {totalGames >= 15 && <span className="badge">Collectionneur</span>}
                     {finished >= 10 && <span className="badge">Finisseur</span>}
                     {ratedGames.length >= 10 && <span className="badge">Critique</span>}
                 </div>
             </div>
 
 
+            <div className="profile-section password-section">
+                <h2>Changer le mot de passe</h2>
 
+                <div className="password-form">
+                    <input type="password" placeholder="Ancien mot de passe" value={oldPassword} 
+                    onChange={(e) => setOldPassword(e.target.value)} />
 
-        <div className="profile-section">
-            <h2>Favoris</h2>
-            <div className="favorites">
-                {games
-                    .filter(g => g.isFavorite)
-                    .slice(0, 5)
-                    .map((game => (
-                        <div key={game._id} className="favorite-game">
-                            <img src={game.background_image} alt={game.title} />
-                            <p>{game.title}</p>
-                        </div>
-                    )))}
-                {games.filter(g => g.isFavorite).length === 0 && <p>Aucun favoris pour le moment.</p>}
+                    <input type="password" placeholder="Nouveau mot de passe" value={newPassword} 
+                    onChange={(e) => setNewPassword(e.target.value)} />
+
+                    <input type="password" placeholder="Confirmer le nouveau mot de passe" value={confirmPassword} 
+                    onChange={(e) => setConfirmPassword(e.target.value)} />
+
+                    <button className="change-password-btn" onClick={handleChangePassword} disabled={passwordLoading}>
+                        {passwordLoading ? "Modification..." : "Modifier le mot de passe"}
+                    </button>
+                </div>
             </div>
-        </div>
-
-
-
-
+ 
             
         <Footer />                    
         </>

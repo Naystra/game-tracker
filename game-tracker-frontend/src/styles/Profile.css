@@ -117,8 +117,6 @@
 
 
 
-
-
 .profile-section {
   max-width: 1000px;
   margin: 2rem auto;
@@ -153,7 +151,8 @@
   border-radius: 8px;
   border: 1px solid #00ffff30;
   text-align: center;
-  width: 140px;
+  width: 220px;
+  padding: 0.8rem;
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
   transition: all 0.2s ease;
 }
@@ -161,16 +160,16 @@
 
 .top-game img, .low-game img, .favorite-game img {
   width: 100%;
-  height: 100px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 0.5rem;
 }
 
 
 .top-game p, .low-game p, .favorite-game p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #e5e5e5;
 }
 
@@ -213,6 +212,114 @@
   font-size: 0.85rem;
   border: 1px solid #00ffff50;
 }
+
+
+.avatar-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.avatar-actions input[type="file"] {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: #0f0f0f;
+  color: #00ffff;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.avatar-actions input[type="file"]:hover {
+  background: #00ffff;
+  color: black;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4)
+}
+
+.avatar-actions button {
+  background: transparent;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.avatar-actions button:hover {
+  background: #00ffff;
+  color: black;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+}
+
+
+
+
+.password-section {
+  text-align: center;
+}
+
+.password-form {
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.password-form input {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  background: #0c0c0c;
+  color: white;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+
+.password-form input:focus {
+  outline: none;
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+
+.password-form input::placeholder {
+  color: #888;
+}
+
+
+.change-password-btn {
+  margin-top: 0.5rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #00ffff;
+  background: transparent;
+  color: #00ffff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.change-password-btn:hover {
+  background: #00ffff;
+  color: black;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+
+.change-password-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
 
 
 

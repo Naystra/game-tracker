@@ -28,10 +28,10 @@ const Login = () => {
             localStorage.setItem("user", JSON.stringify(res.data.user));
 
             // Redirection
-            navigate("/stats");
+            navigate("/profile");
         } catch (err) {
             console.error(err);
-            alert("Identtifiants invalides")
+            alert("Identifiants invalides")
         }
     };
 

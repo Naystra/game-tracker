@@ -1,14 +1,14 @@
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Header.css";
 
 
 function Header () {
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
-    // Récupérer l'utilisateur depuis le localStorage
-    const storedUser = localStorage.getItem("user");
-    const user = storedUser ? JSON.parse(storedUser) : null;
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -30,7 +30,6 @@ function Header () {
                     <li><Link to="/library">Collections</Link></li>
                     <li><Link to="/profile">Profil</Link></li>
                     <li><Link to="/search">Rechercher</Link></li>
-                    
                 </ul>
             </nav>
 

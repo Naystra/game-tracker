@@ -2,9 +2,9 @@ const express = require("express");
 const User = require("../models/User");
 const protect = require ('../middleware/auth');
 const upload = require ("../config/multer.js");
+const bcrypt = require("bcrypt");
 
 const router = express.Router();
-
 
 
 // Récupérer le profil de l'utilisateur
@@ -56,5 +56,33 @@ router.put('/me/bio', protect, async (req, res) => {
         res.status(500).json({ message: "Erreur serveur"});
     } 
 });
+
+
+
+// Changer le mot de passe
+router.put('/me/password', protect, async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+
+        // Récupérer l'utilisateur depuis le token
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ message: "Utilisateur introuvable"});
+
+        // Vérifier que l'ancien mot de passe est correct
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) return res.status(400).json({ message: "Ancien mot de passe incorrect"});
+
+        
+        user.password = newPassword;
+        await user.save();
+
+
+        res.json({ message: "Mot de passe mis à jour !" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Erreur serveur"});
+    }
+});
+
 
 module.exports = router;
