@@ -12,4 +12,7 @@ const gameSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// Index unique combiné : empêche un utilisateur d'ajouter plusieurs fois le même jeu
+gameSchema.index({ rawgId: 1, user: 1 }, { unique: true });
+
 module.exports = mongoose.model('Game', gameSchema);

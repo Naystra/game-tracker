@@ -5,16 +5,17 @@ import "../styles/Header.css";
 
 
 function Header () {
-    const { user } = useContext(UserContext);
+    const { user, loading, setUser } = useContext(UserContext);
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
 
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        setUser(null);
         navigate("/login");
     };
+
+    if (loading) return <p>Chargement...</p>;
 
     return (
         <header className="header">
@@ -25,8 +26,8 @@ function Header () {
             <nav>
                 <ul>
                     <li><Link to="/">Accueil</Link></li>
-                    {!token && <li><Link to="/login">Connexion</Link></li>}
-                    {token && <li><Link to="/stats">Stats</Link></li>}
+                    {!user && <li><Link to="/login">Connexion</Link></li>}
+                    {user && <li><Link to="/stats">Stats</Link></li>}
                     <li><Link to="/library">Collections</Link></li>
                     <li><Link to="/profile">Profil</Link></li>
                     <li><Link to="/search">Rechercher</Link></li>
@@ -34,11 +35,14 @@ function Header () {
             </nav>
 
             <div className="header-right">
-                {token && (
+                {user && (
                     <>
                     
                     <Link to="/profile">
-                    <img src={user?.avatar ? `http://localhost:5000/uploads/${user.avatar}` : `https://ui-avatars.com/api/?name=${user?.username}`} alt="avatar" className="avatar" />
+                    <img src={user.avatar 
+                        ? `http://localhost:5000/uploads/${user.avatar}` 
+                        : `https://ui-avatars.com/api/?name=${user.username}`} 
+                    alt="avatar" className="avatar" />
                     </Link>
 
                     <button className="logout-btn" onClick={handleLogout}>Déconnexion</button>

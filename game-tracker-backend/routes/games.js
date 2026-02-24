@@ -4,6 +4,9 @@ const Game = require('../models/Game');
 const protect = require('../middleware/auth');
 
 
+                                                            //// CRUD Games ////
+
+
 // Créer un jeu (CREATE) :
 router.post('/', protect, async (req, res) => {
     try {
@@ -31,6 +34,7 @@ router.post('/', protect, async (req, res) => {
             user: req.user._id
         });
         res.status(201).json(game);
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Erreur création jeu' });

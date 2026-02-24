@@ -1,8 +1,9 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import "../styles/Login.css";
 
 
@@ -11,6 +12,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,11 +26,12 @@ const Login = () => {
             // Stockage du token
             localStorage.setItem("token", res.data.token);
 
-            // Stocker l'utilisateur
-            localStorage.setItem("user", JSON.stringify(res.data.user));
+            // Mettre à jour le context
+            setUser(res.data.user);
 
             // Redirection
             navigate("/profile");
+
         } catch (err) {
             console.error(err);
             alert("Identifiants invalides")

@@ -21,7 +21,7 @@ function Profile() {
 
     const token = localStorage.getItem("token");
 
-    // Fetch des jeux uniquement
+    // Fetch des jeux 
     useEffect(() => {
             if (!token) return;
 
@@ -50,8 +50,7 @@ function Profile() {
 
 
     if (loading) return <p>Chargement...</p>;
-    if (!user) return <p>Utilisateur introuvable</p>
-
+    if (!user) return null;
 
 
     // Stats calculées côté frontend
@@ -67,8 +66,10 @@ function Profile() {
             const res = await axios.put("http://localhost:5000/api/users/me/bio", 
                 { bio }, { headers: { Authorization: `Bearer ${token}`}}
             );
+        
             setUser(res.data);
             alert("Bio mise à jour !")
+            
         } catch (err) {
             console.error(err);
             alert("Erreur lors de la mise à jour de la bio")
@@ -80,6 +81,7 @@ function Profile() {
     // Fonction pour upload des images
     const handleUpload = async () => {
         if (!selectedFile) return;
+
         const formData = new FormData();
         formData.append("avatar", selectedFile);
 
@@ -88,6 +90,7 @@ function Profile() {
                 { headers: {"Content-Type": "multipart/form-data", Authorization: `Bearer ${token}`}}
             );
 
+            
             setUser(res.data);
             setSelectedFile(null);
 
@@ -145,7 +148,9 @@ function Profile() {
             <Header />
 
             <div className="profile-header">
-                <img src={user?.avatar ? `http://localhost:5000/uploads/${user.avatar}` : `https://ui-avatars.com/api/?name=${user?.username}`} 
+                <img src={user.avatar 
+                ? `http://localhost:5000/uploads/${user.avatar}` 
+                : `https://ui-avatars.com/api/?name=${user.username}`} 
                 alt="avatar" className="profile-avatar-large" />
 
 
