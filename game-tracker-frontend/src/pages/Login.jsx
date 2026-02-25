@@ -12,12 +12,23 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setErrors({});
+        setErrorMessage("");
+
+        const validationErrors = validate();
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+        
 
         try {
             const res = await axios.post("http://localhost:5000/api/auth/login", {
@@ -38,13 +49,33 @@ const Login = () => {
             const data = err.response?.data;
 
             if (data?.errors) {
-                setErrors(data.errors);
+                const backendErrors = {};
+                data.errors.forEach(e => {
+                    backendErrors[e.param] = e.msg;
+                });
+                setErrors(backendErrors);
             } else {
                 setErrorMessage(data?.message || "Identifiants invalides");
             }
         }
     };
 
+
+    const validate = () => {
+        const newErrors = {};
+
+        if (!email.trim()) {
+            newErrors.email = "Email obligatoire";
+        } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            newErrors.email = "Email invalide";
+        }
+
+        if (!password.trim()) {
+            newErrors.password = "Mot de passe obligatoire";
+        }
+
+    return newErrors;
+    };
 
     return (
         <>  
@@ -54,18 +85,14 @@ const Login = () => {
                     <h2>Connexion</h2>
 
                     <form onSubmit={handleSubmit}>
+                        {errors.email && <p className="login-register-text">{errors.email}</p>}
                         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+
+                        {errors.password && <p className="login-register-text">{errors.password}</p>}
                         <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
+
                         <button type="submit">Se connecter</button>
                     </form>
-
-                    {errors.length > 0 && (
-                        <div>
-                            {errors.map((e, i) => (
-                                <p key={i} className="login-register-text">{e.msg}</p>
-                            ))}                      
-                        </div>
-                    )}
 
                     {errorMessage && <p className="login-register-text">{errorMessage}</p>}
 
