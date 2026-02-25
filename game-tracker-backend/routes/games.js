@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Game = require('../models/Game');
 const protect = require('../middleware/auth');
+const { validateGame, validateUpdateGame } = require('../middleware/validateGame');
 
 
                                                             //// CRUD Games ////
 
 
 // Créer un jeu (CREATE) :
-router.post('/', protect, async (req, res) => {
+router.post('/', protect, validateGame, async (req, res) => {
     try {
         const { title, rawgId, status, rating, background_image } = req.body;
 
@@ -55,7 +56,7 @@ router.get('/', protect, async (req, res) => {
 
 
 // Modifier un jeu (UPDATE) :
-router.put('/:id', protect, async (req, res) => {
+router.put('/:id', protect, validateUpdateGame, async (req, res) => {
     try {
         const { title, status, rating } = req.body;
 

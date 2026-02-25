@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const { validateLogin } = require('../middleware/validateAuth');
 
 
 // Route LOGIN :
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     try {
         // Recupérer email et mot de passe
         const { email, password } = req.body;

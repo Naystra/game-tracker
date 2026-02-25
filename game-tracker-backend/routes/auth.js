@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const { validateRegister } = require('../middleware/validateAuth');
 
 
 
 // Route REGISTER :
-router.post('/register', async (req, res) => {
+router.post('/register', validateRegister, async (req, res) => {
     try {
         // Récupérer les données du front
         const { username, email, password } = req.body;
@@ -23,7 +24,7 @@ router.post('/register', async (req, res) => {
 
         // Générer un token JWT 
         const token = jwt.sign({ id : user._id}, process.env.JWT_SECRET, {
-            expiresIn: '7d'
+            expiresIn: '3d'
         });
 
         // Renvoyer le token et les infos de l'utilisateur

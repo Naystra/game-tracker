@@ -11,6 +11,8 @@ import "../styles/Login.css";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errors, setErrors] = useState([]);
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -33,8 +35,13 @@ const Login = () => {
             navigate("/profile");
 
         } catch (err) {
-            console.error(err);
-            alert("Identifiants invalides")
+            const data = err.response?.data;
+
+            if (data?.errors) {
+                setErrors(data.errors);
+            } else {
+                setErrorMessage(data?.message || "Identifiants invalides");
+            }
         }
     };
 
@@ -47,14 +54,24 @@ const Login = () => {
                     <h2>Connexion</h2>
 
                     <form onSubmit={handleSubmit}>
-                        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-                        <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
                         <button type="submit">Se connecter</button>
                     </form>
 
-                    <p className="login-register-text">Pas encore de compte ?</p>
+                    {errors.length > 0 && (
+                        <div>
+                            {errors.map((e, i) => (
+                                <p key={i} className="login-register-text">{e.msg}</p>
+                            ))}                      
+                        </div>
+                    )}
 
+                    {errorMessage && <p className="login-register-text">{errorMessage}</p>}
+
+                    <p className="login-register-text">Pas encore de compte ?</p>
                     <button className="register-btn" type="button" onClick={() => navigate("/register")}>S'inscrire !</button>
+                   
 
                 </div>  
             </div>   
