@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import { UserProvider } from "./context/UserProvider";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 
@@ -23,12 +24,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/library" element={<Library />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/Stats" element={<Stats />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/game/:id" element={<GameDetails />} />
+
+
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+        <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>} />
       </Routes>
     </UserProvider>
   </BrowserRouter>
