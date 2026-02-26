@@ -105,7 +105,7 @@ const Stats = () => {
             </div>
 
             <div className='stats-card'>
-                <h3>Note moyenne</h3>
+                <h3>Note moyenne : {stats.averageRating != null ? Number(stats.averageRating).toFixed(1) : 'N/A'} / 5</h3>
                 <div className='chart-wrapper average'>
                     <Bar data={barData} options={barOptions} />
                 </div>

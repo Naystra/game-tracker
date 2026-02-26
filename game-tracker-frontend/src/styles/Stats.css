@@ -34,14 +34,12 @@
     color: #ffffff;
 }
 
-/* Wrapper commun aux graphiques */
 
 .chart-wrapper {
     max-width: 320px;
     margin: 0 auto;
 }
 
-/* Bar chart plus petit */
 
 .chart-wrapper.average {
     max-width: 420px;

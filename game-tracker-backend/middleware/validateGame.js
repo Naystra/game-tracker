@@ -8,6 +8,7 @@ const handleValidationErrors = (req, res, next) => {
     next();
 }
 
+
 const validateGame = [
     body('title')
         .notEmpty().withMessage("Le titre est  obligatoire"),
