@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [errors, setErrors] = useState({});
-    const { setUser } = useContext(UserContext);
+    const { login } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -35,14 +35,8 @@ const Login = () => {
                 email,
                 password
             });
-
-            // Stockage du token
-            localStorage.setItem("token", res.data.token);
-
-            // Mettre à jour le context
-            setUser(res.data.user);
-
-            // Redirection
+            
+            await login(res.data.token);
             navigate("/profile");
 
         } catch (err) {

@@ -1,9 +1,10 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Login.css";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
 
 
 
@@ -14,6 +15,7 @@ function Register () {
     const [message, setMessage] = useState("");
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+    const { login } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +38,8 @@ function Register () {
             });
 
             setMessage("Inscription réussi !");
-            setTimeout(() => navigate("/login"), 2000);     
+            await login(res.data.token);
+            setTimeout(() => navigate("/"), 2000);     
 
         } catch (err) {
             const data = err.response?.data;

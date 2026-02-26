@@ -5,18 +5,15 @@ import "../styles/Header.css";
 
 
 function Header () {
-    const { user, loading, setUser } = useContext(UserContext);
+    const { user, logout } = useContext(UserContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        setUser(null);
+        logout();
         navigate("/login");
     };
-
-    if (loading) return <p>Chargement...</p>;
 
 
 

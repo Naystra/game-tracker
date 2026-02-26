@@ -6,34 +6,38 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     
-    const token = localStorage.getItem("token");
-
+    
     useEffect(() => {
-        const fetchUser = async () => {
-            if (!token) {
-                setLoading(false);
-                return;
-            }
+        const token = localStorage.getItem("token");
+        if (!token) { setLoading(false); return;} 
 
-            try {
-                const res = await axios.get("http://localhost:5000/api/users/me",{headers: { Authorization: `Bearer ${token}`}});
+        axios.get("http://localhost:5000/api/users/me", { headers: { Authorization: `Bearer ${token}` }})
+            .then(res => setUser(res.data))
+            .catch(() => setUser(null))
+            .finally(() => setLoading(false));                
+    }, []);
 
-                setUser(res.data);
 
-            } catch (err) {
-                console.error(err);
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const login = async (token) => {
+        localStorage.setItem("token", token);
 
-        fetchUser();
-    }, [token]);
+        try {
+            const res = await axios.get("http://localhost:5000/api/users/me", { headers: { Authorization: `Bearer ${token}` }});
+            setUser(res.data);
+        } catch {
+            setUser(null);
+        }
+    };
 
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user")
+        setUser(null);
+    };
 
     return (
-        <UserContext.Provider value={{ user, setUser, loading }}>
+        <UserContext.Provider value={{ user, setUser, loading, login, logout }}>
             {children}
         </UserContext.Provider>
     );
