@@ -18,7 +18,7 @@ function Library() {
 
   const fetchGames = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/games", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/games`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGames(res.data);
@@ -40,7 +40,7 @@ function Library() {
   const handleDelete = async (id) => {
     if (!window.confirm("Voulez-vous vraiment supprimer ce jeu ?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/games/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/games/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGames(games.filter((game) => game._id !== id));
@@ -54,7 +54,7 @@ function Library() {
   // Fonction update :
   const handleUpdate = async (id, field, value) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/games/${id}`,{ [field]: value },
+      const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/games/${id}`,{ [field]: value },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setGames(games.map((g) => (g._id === id ? res.data : g)));

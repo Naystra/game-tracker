@@ -42,7 +42,7 @@ function Search () {
             return;
         }
         
-            await axios.post("http://localhost:5000/api/games",
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/games`,
             {
                 title: game.name,
                 rawgId: game.id,

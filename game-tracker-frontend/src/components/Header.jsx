@@ -42,7 +42,7 @@ function Header () {
                         <li className="menu-user">
                             <Link to="/profile" onClick={() => setMenuOpen(false)}>
                                 <img src={user.avatar
-                                    ? `http://localhost:5000/uploads/${user.avatar}`
+                                    ? `${import.meta.env.VITE_API_URL}/uploads/${user.avatar}`
                                     : `https://ui-avatars.com/api/?name=${user.username}`}
                                 alt="avatar" className="avatar" />
                                 <span>{user.username}</span>
@@ -59,7 +59,7 @@ function Header () {
                     
                     <Link to="/profile">
                         <img src={user.avatar 
-                            ? `http://localhost:5000/uploads/${user.avatar}` 
+                            ? `${import.meta.env.VITE_API_URL}/uploads/${user.avatar}` 
                             : `https://ui-avatars.com/api/?name=${user.username}`} 
                         alt="avatar" className="avatar" />
                     </Link>
