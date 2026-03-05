@@ -16,17 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 
-
-// Connexion MongoDB :
-mongoose.connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 30000,
-    socketTimeoutMS: 45000,
-})
-    .then(() => console.log('MongoDB connecté'))
-    .catch(err => console.error('Erreur MongoDB :', err));
-
-
-
 // Route Test :
 app.get('/', (req, res) => {
     res.send('API Game Tracker OK'); 
@@ -44,9 +33,26 @@ app.use('/api/users', require('./routes/user'));
 app.use('/uploads', express.static('uploads'));
 
 
-// Lancement du serveur
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Serveur lancé sur : http://localhost:${PORT}`);
-});
+
+// Connexion MongoDB + lancement du serveur :
+mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
+})
+.then(() => {
+    console.log('MongoDB connecté');
+
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Serveur lancé sur : http://localhost:${PORT}`);
+    });
+})
+    .catch(err =>  {
+        console.error('Erreur MongoDB :', err);
+    });
+
+
+
+
+
 
