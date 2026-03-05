@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../Styles/Login.css";
+import "../styles/Login.css";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 

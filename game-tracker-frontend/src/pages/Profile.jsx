@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
-import "../Styles/Profile.css";
+import "../styles/Profile.css";
 
 
 function Profile() {
