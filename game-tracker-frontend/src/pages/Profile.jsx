@@ -27,7 +27,7 @@ function Profile() {
 
             const fetchGames = async () => {
             try {
-                const resGames = await axios.get(`${import.meta.env.VITE_API_URL}/api/games`, {headers: { Authorization: `Bearer ${token}`}});
+                const resGames = await axios.get("http://localhost:5000/api/games", {headers: { Authorization: `Bearer ${token}`}});
                 
                 setGames(resGames.data);                            
 
@@ -63,7 +63,7 @@ function Profile() {
     // Fonction pour changer la bio
     const handleSaveBio = async () => {
         try {
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/users/me/bio`, 
+            const res = await axios.put("http://localhost:5000/api/users/me/bio", 
                 { bio }, { headers: { Authorization: `Bearer ${token}`}}
             );
         
@@ -86,7 +86,7 @@ function Profile() {
         formData.append("avatar", selectedFile);
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/upload-avatar`, formData,
+            const res = await axios.post("http://localhost:5000/api/users/upload-avatar", formData,
                 { headers: {"Content-Type": "multipart/form-data", Authorization: `Bearer ${token}`}}
             );
 
@@ -123,7 +123,7 @@ function Profile() {
         try {
             setPasswordLoading(true);
 
-            await axios.put(`${import.meta.env.VITE_API_URL}/api/users/me/password`,
+            await axios.put("http://localhost:5000/api/users/me/password",
                 { oldPassword, newPassword },
                 { headers: { Authorization: `Bearer ${token}`}}
             );
@@ -149,7 +149,7 @@ function Profile() {
 
             <div className="profile-header">
                 <img src={user.avatar 
-                ? `${import.meta.env.VITE_API_URL}/uploads/${user.avatar}` 
+                ? `http://localhost:5000/uploads/${user.avatar}` 
                 : `https://ui-avatars.com/api/?name=${user.username}`} 
                 alt="avatar" className="profile-avatar-large" />
 
@@ -186,7 +186,7 @@ function Profile() {
                 <h2>Jeux le mieux notés</h2>
                 <div className="top-games">
                     {[...games]
-                        .sort((a, b) => b.rating - a.rating)
+                        .filter(g => g.rating > 0).sort((a, b) => b.rating - a.rating)
                         .slice(0, 3)
                         .map((game) => (
                             <div key={game._id} className="top-game">
@@ -201,7 +201,7 @@ function Profile() {
                 <h2> Jeux le moins bien notés</h2>
                 <div className="low-games">
                     {[...games]
-                        .sort((a, b) => a.rating - b.rating)
+                        .filter(g => g.rating > 0).sort((a, b) => a.rating - b.rating)
                         .slice(0, 3)
                         .map((game) => (
                             <div key={game._id} className="low-game">

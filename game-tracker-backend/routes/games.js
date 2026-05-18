@@ -5,7 +5,7 @@ const protect = require('../middleware/auth');
 const { validateGame, validateUpdateGame } = require('../middleware/validateGame');
 
 
-                                                            //// CRUD Games ////
+//// CRUD Games ////
 
 
 // Créer un jeu (CREATE) :
@@ -74,7 +74,7 @@ router.put('/:id', protect, validateUpdateGame, async (req, res) => {
         // Mettre à jour les champs
         if (title) game.title = title;
         if (status) game.status = status;
-        if (rating) game.rating = rating;
+        if (rating !== undefined) game.rating = rating;
 
         // Sauvergarde les modifications dans la BDD
         const updateGame = await game.save();

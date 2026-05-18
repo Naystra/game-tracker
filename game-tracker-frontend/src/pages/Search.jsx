@@ -3,7 +3,8 @@ import "../styles/Search.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 function Search () {
@@ -12,7 +13,7 @@ function Search () {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const RAWG_API_KEY = "9ebc7ee0f1b3409cb9af5114cee81b81";
+    const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY;
 
 
     // Fonction appelée au submit
@@ -42,7 +43,7 @@ function Search () {
             return;
         }
         
-            await axios.post(`${import.meta.env.VITE_API_URL}/api/games`,
+            await axios.post("http://localhost:5000/api/games",
             {
                 title: game.name,
                 rawgId: game.id,
@@ -84,10 +85,12 @@ function Search () {
                 <div className="search-grid">
                     {results.map((game) => (
                         <div className="search-card" key={game.id}> 
-                            <img src={game.background_image || "/images/default-game.png"} alt={game.name} className="search-image"
-                            style={{ width: "100%", borderRadius: "4px", height: "450px", objectFit: "cover" }}                           
-                            />
-                            <h3>{game.name}</h3>
+                            <Link to={`/game/${game.id}`}>
+                                <img src={game.background_image || "/images/default-game.png"} alt={game.name} className="search-image"
+                                style={{ width: "100%", borderRadius: "4px", objectFit: "cover" }}                           
+                                />
+                                <h3>{game.name}</h3>
+                            </Link>
                             <p>Note moyenne : {game.rating || "N/A"}</p>
                             <button onClick={() => handleAddGame(game)}>Ajouter à ma collection</button>
                         </div>                      

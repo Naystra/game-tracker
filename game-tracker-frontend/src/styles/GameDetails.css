@@ -40,6 +40,39 @@
     color: #ccc;
 }
 
+.back-btn {
+    margin-bottom: 1.5rem;
+    background: transparent;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #00ffff;
+    color: #000;
+}
+
+.add-btn {
+    display: block;
+    margin: 2rem auto;
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s ease;
+}
+
+.add-btn:hover {
+    background: #00ffff;
+    color: #000;
+}
 
 
 
