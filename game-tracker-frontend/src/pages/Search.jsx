@@ -8,13 +8,18 @@ import toast from "react-hot-toast";
 
 
 
+const API_URL = import.meta.env.VITE_API_URL;
+const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY;
+
+
+
 function Search () {
     const [search, setSearch]   = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY;
+    
 
 
     // Fonction appelée au submit
@@ -44,7 +49,7 @@ function Search () {
             return;
         }
         
-            await axios.post("http://localhost:5000/api/games",
+            await axios.post(`${API_URL}/api/games`,
             {
                 title: game.name,
                 rawgId: game.id,
