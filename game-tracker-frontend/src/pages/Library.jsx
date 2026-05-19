@@ -8,6 +8,11 @@ import toast from "react-hot-toast";
 
 
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
+
+
 function Library() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +24,7 @@ function Library() {
 
   const fetchGames = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/games", {
+      const res = await axios.get(`${API_URL}/api/games`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGames(res.data);
@@ -41,7 +46,7 @@ function Library() {
   const handleDelete = async (id) => {
     if (!window.confirm("Voulez-vous vraiment supprimer ce jeu ?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/games/${id}`, {
+      await axios.delete(`${API_URL}/api/games/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGames(games.filter((game) => game._id !== id));
@@ -55,7 +60,7 @@ function Library() {
   // Fonction update :
   const handleUpdate = async (id, field, value) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/games/${id}`,{ [field]: value },
+      const res = await axios.put(`${API_URL}/api/games/${id}`,{ [field]: value },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setGames(games.map((g) => (g._id === id ? res.data : g)));

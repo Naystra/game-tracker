@@ -7,6 +7,12 @@ import "../styles/Profile.css";
 import toast from "react-hot-toast";
 
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
+
+
 function Profile() {
     const { user, setUser } = useContext(UserContext);
     const [loading, setLoading] = useState(true);
@@ -28,7 +34,7 @@ function Profile() {
 
             const fetchGames = async () => {
             try {
-                const resGames = await axios.get("http://localhost:5000/api/games", {headers: { Authorization: `Bearer ${token}`}});
+                const resGames = await axios.get(`${API_URL}/api/games`, {headers: { Authorization: `Bearer ${token}`}});
                 
                 setGames(resGames.data);                            
 
@@ -64,7 +70,7 @@ function Profile() {
     // Fonction pour changer la bio
     const handleSaveBio = async () => {
         try {
-            const res = await axios.put("http://localhost:5000/api/users/me/bio", 
+            const res = await axios.put(`${API_URL}/api/users/me/bio`, 
                 { bio }, { headers: { Authorization: `Bearer ${token}`}}
             );
         
@@ -87,7 +93,7 @@ function Profile() {
         formData.append("avatar", selectedFile);
 
         try {
-            const res = await axios.post("http://localhost:5000/api/users/upload-avatar", formData,
+            const res = await axios.post(`${API_URL}/api/users/upload-avatar`, formData,
                 { headers: {"Content-Type": "multipart/form-data", Authorization: `Bearer ${token}`}}
             );
 
@@ -124,7 +130,7 @@ function Profile() {
         try {
             setPasswordLoading(true);
 
-            await axios.put("http://localhost:5000/api/users/me/password",
+            await axios.put(`${API_URL}/api/users/me/password`,
                 { oldPassword, newPassword },
                 { headers: { Authorization: `Bearer ${token}`}}
             );
@@ -150,7 +156,7 @@ function Profile() {
 
             <div className="profile-header">
                 <img src={user.avatar 
-                ? `http://localhost:5000/uploads/${user.avatar}` 
+                ? `${API_URL}/uploads/${user.avatar}` 
                 : `https://ui-avatars.com/api/?name=${user.username}`} 
                 alt="avatar" className="profile-avatar-large" />
 
