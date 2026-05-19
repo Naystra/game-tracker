@@ -9,6 +9,11 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
+
 const Stats = () => {
     const [stats, setStats] = useState(null);
     const navigate = useNavigate();
@@ -23,7 +28,7 @@ const Stats = () => {
             }
 
             try {
-                const res = await axios.get('http://localhost:5000/api/stats', {
+                const res = await axios.get(`${API_URL}/api/stats`, {
                     headers: { Authorization: `Bearer ${token}`}
                 });
 
