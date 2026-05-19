@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Library.css";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
@@ -25,7 +26,7 @@ function Library() {
 
     } catch (err) {
       console.error(err);
-      alert("Erreur lors du chargement de la collection.");
+      toast.error("Erreur lors du chargement de la collection.");
     } finally {
       setLoading(false);
     }
@@ -46,7 +47,7 @@ function Library() {
       setGames(games.filter((game) => game._id !== id));
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de la suppression du jeu.");
+      toast.error("Erreur lors de la suppression du jeu.");
     }
   };
 
@@ -60,7 +61,7 @@ function Library() {
       setGames(games.map((g) => (g._id === id ? res.data : g)));
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de la mise à jour.");
+      toast.error("Erreur lors de la mise à jour.");
     }
   };
 

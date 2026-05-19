@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../styles/GameDetails.css"
+import "../styles/GameDetails.css";
+import toast from "react-hot-toast";
+import DOMPurify from "dompurify";
 
 
 function GameDetails() {
@@ -23,7 +25,7 @@ function GameDetails() {
             setGame(res.data);
         } catch (err) {
             console.error(err);
-            alert("Erreur lors du chargement du jeu");
+            toast.error("Erreur lors du chargement du jeu");
         } finally {
             setLoading(false);
         }
@@ -38,7 +40,7 @@ function GameDetails() {
      const handleAddGame = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
-            alert("Tu dois être connecté pour ajouter un jeu");
+            toast.error("Tu dois être connecté pour ajouter un jeu");
             return;
         }
 
@@ -52,13 +54,13 @@ function GameDetails() {
                 },
                 { headers: { Authorization: `Bearer ${token}` }}
             );
-            alert(`${game.name} ajouté à ta collection !`);
+            toast.success(`${game.name} ajouté à ta collection !`);
         } catch (err) {
             if (err.response?.status === 400) {
-                alert(err.response.data.message);
+                toast.error(err.response.data.message);
             } else {
                 console.error(err);
-                alert("Erreur lors de l'ajout du jeu.");
+                toast.error("Erreur lors de l'ajout du jeu.");
             }
         }
     };
@@ -84,7 +86,7 @@ function GameDetails() {
                 <p><strong>Score Metacritic :</strong> {game.metacritic || "N/A"}</p>
                 <p><strong>Genres :</strong> {game.genres?.map(g => g.name).join(", ")}</p>
                 <p><strong>Modes :</strong> {game.tags?.map(t => t.name).join(", ")}</p>
-                <p><strong>Description :</strong> <span dangerouslySetInnerHTML={{__html: game.description}} /></p>
+                <p><strong>Description :</strong> <span dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(game.description)}} /></p>  
 
                 <button className="add-btn" onClick={handleAddGame}>+ Ajouter à ma collection</button>
 

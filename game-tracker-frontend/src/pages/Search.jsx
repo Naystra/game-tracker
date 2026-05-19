@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
@@ -27,7 +28,7 @@ function Search () {
             setResults(res.data.results);
         } catch (err) {
             console.error(err);
-            alert("Erreur lors de la recherche.")
+            toast.error("Erreur lors de la recherche.");
         } finally {
             setLoading(false);
         }    
@@ -39,7 +40,7 @@ function Search () {
         try {
         const token = localStorage.getItem("token");
         if (!token) {
-            alert("Tu dois être connecté pour ajouter un jeu");
+            toast.error("Tu dois être connecté pour ajouter un jeu");
             return;
         }
         
@@ -53,13 +54,13 @@ function Search () {
             },
             { headers: { Authorization: `Bearer ${token}`}}
         );
-        alert(`Tu as ajouté ${game.name} à ta collection !`);
+        toast.success(`${game.name} ajouté à ta collection !`);
         } catch (err) {
             if (err.response?.status === 400) {
-                alert(err.response.data.message);
+                toast.error(err.response.data.message);
             } else {
                 console.error(err);
-                alert("Erreur lors de l'ajout du jeu.");
+                toast.error("Erreur lors de l'ajout du jeu.");
             }
         }      
     };

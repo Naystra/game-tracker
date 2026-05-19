@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "react-hot-toast"
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -12,17 +13,20 @@ import GameDetails from "./pages/GameDetails";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/search" element={<Search />} />
-      <Route path="/game/:id" element={<GameDetails />} />
+    <>
+      <Toaster position="top-right" />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/game/:id" element={<GameDetails />} />
 
-      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
-      <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>} />
-    </Routes>
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+        <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>} />
+      </Routes>
+    </>
   );
 }
 

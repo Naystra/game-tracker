@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import "../styles/Profile.css";
+import toast from "react-hot-toast";
 
 
 function Profile() {
@@ -68,11 +69,11 @@ function Profile() {
             );
         
             setUser(res.data);
-            alert("Bio mise à jour !")
+            toast.success("Bio mise à jour !")
             
         } catch (err) {
             console.error(err);
-            alert("Erreur lors de la mise à jour de la bio")
+            toast.error("Erreur lors de la mise à jour de la bio")
         }
     };
 
@@ -94,10 +95,10 @@ function Profile() {
             setUser(res.data);
             setSelectedFile(null);
 
-            alert("Avatar mis à jour !")
+            toast.success("Avatar mis à jour !")
         } catch (err) {
             console.error(err);
-            alert("Erreur upload avatar")
+            toast.error("Erreur upload avatar")
         }
     };
 
@@ -106,17 +107,17 @@ function Profile() {
     // Fonction pour modifier le mot de passe
     const handleChangePassword = async () => {
         if (!oldPassword || !newPassword || !confirmPassword) {
-            alert("Tous les champs sont obligatoires");
+            toast.error("Tous les champs sont obligatoires");
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            alert("Les nouveaux mots de passe ne correspondent pas");
+            toast.error("Les nouveaux mots de passe ne correspondent pas");
             return;
         }
 
         if (newPassword.length < 6) {
-            alert("Le mot de passe doit faire au moins 6 caractères");
+            toast.error("Le mot de passe doit faire au moins 6 caractères");
             return;
         }
 
@@ -128,7 +129,7 @@ function Profile() {
                 { headers: { Authorization: `Bearer ${token}`}}
             );
 
-            alert("Mot de passe mis à jour avec succés !");
+            toast.success("Mot de passe mis à jour avec succés !");
 
             setOldPassword("");
             setNewPassword("");
@@ -136,7 +137,7 @@ function Profile() {
 
         } catch (err) {
             console.error(err);
-            alert(err.response?.data?.message || "Erreur lors du chargement");
+            toast.error(err.response?.data?.message || "Erreur lors du chargement");
         } finally {
             setPasswordLoading(false);
         }
