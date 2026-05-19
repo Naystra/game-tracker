@@ -10,7 +10,7 @@ const router = express.Router();
 // Récupérer le profil de l'utilisateur
 router.get('/me', protect, async (req, res) => {
     try {
-        const user = await User.findById(req.user._id).select("-password"); // .select("-password") On enlève le mot de passe pour sécurité
+        const user = await User.findById(req.user._id).select("-password"); // .select("-password") On enlève le mot de passe pour la sécurité
 
         if (!user) {
             return res.status(404).json({ message: "Utilisateur non trouvé" });
@@ -63,6 +63,10 @@ router.put('/me/bio', protect, async (req, res) => {
 router.put('/me/password', protect, async (req, res) => {
     try {
         const { oldPassword, newPassword } = req.body;
+
+        if (!newPassword || newPassword.length < 6) {
+            return res.status(400).json({ message: "Le nouveau mot de passe doit faire au moins 6 caractères" });
+        }
 
         // Récupérer l'utilisateur depuis le token
         const user = await User.findById(req.user.id);
