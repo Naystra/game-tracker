@@ -8,10 +8,8 @@ Application web fullstack permettant de suivre sa collection de jeux vidéo, ses
 **Backend :** [game-tracker-backend-e23c.onrender.com](https://game-tracker-backend-e23c.onrender.com)
 
 ### Compte de démonstration
-| Champ | Valeur |
-|-------|--------|
-| Email | kevin@test.com |
-| Mot de passe | 123456 |
+
+Créez un compte directement sur le site, l'inscription est libre et gratuite.
 
 ---
 
