@@ -16,6 +16,7 @@ function GameDetails() {
 
     
     const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY;
+    const API_URL = import.meta.env.VITE_API_URL;
 
 
     useEffect(() => {
@@ -45,7 +46,7 @@ function GameDetails() {
         }
 
         try {
-            await axios.post("http://localhost:5000/api/games",
+            await axios.post(`${API_URL}/api/games`,
                 {
                     title: game.name,
                     rawgId: game.id,

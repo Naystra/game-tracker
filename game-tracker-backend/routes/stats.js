@@ -23,7 +23,7 @@ router.get('/', protect, async (req, res) => {
 
        
         // Calcul la note moyenne des jeux
-        const ratedGames = games.filter(g => g.rating != null);
+        const ratedGames = games.filter(g => g.rating > 0);
         const averageRating = ratedGames.length > 0 ? (ratedGames.reduce((acc, game) => acc + game.rating, 0) / ratedGames.length).toFixed(1) : 0;
 
         res.json({ totalGames, finished, inProgress, toDo, averageRating });

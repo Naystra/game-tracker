@@ -179,10 +179,6 @@ function Profile() {
 
                     <button className="save-bio-btn" onClick={handleSaveBio}>Enregistrer la bio</button>
 
-                    <div className="social-links">
-                        <a href="https://www.twitter.com/" target="_blank">Twitter</a>
-                        <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-                    </div>
                 </div>
             </div>
 
@@ -247,20 +243,27 @@ function Profile() {
             <div className="profile-section password-section">
                 <h2>Changer le mot de passe</h2>
 
-                <div className="password-form">
+                <form className="password-form" onSubmit={(e) => { e.preventDefault(); handleChangePassword(); }}>
+                    <input type="text" name="username" value={user.username} 
+                    autoComplete="username" 
+                    style={{ display: "none" }} readOnly />
+
                     <input type="password" placeholder="Ancien mot de passe" value={oldPassword} 
+                    autoComplete="current-password"
                     onChange={(e) => setOldPassword(e.target.value)} />
 
                     <input type="password" placeholder="Nouveau mot de passe" value={newPassword} 
+                    autoComplete="new-password"
                     onChange={(e) => setNewPassword(e.target.value)} />
 
-                    <input type="password" placeholder="Confirmer le nouveau mot de passe" value={confirmPassword} 
+                    <input type="password" placeholder="Confirmer le nouveau mot de passe" value={confirmPassword}
+                    autoComplete="new-password" 
                     onChange={(e) => setConfirmPassword(e.target.value)} />
 
-                    <button className="change-password-btn" onClick={handleChangePassword} disabled={passwordLoading}>
+                    <button type="submit" className="change-password-btn" disabled={passwordLoading}>
                         {passwordLoading ? "Modification..." : "Modifier le mot de passe"}
                     </button>
-                </div>
+                </form>
             </div>
  
             

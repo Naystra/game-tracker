@@ -28,7 +28,11 @@ Créez un compte directement sur le site, l'inscription est libre et gratuite.
 ##  Stack technique
 
 ### Frontend
+<<<<<<< HEAD
 - React 18
+=======
+- React 19
+>>>>>>> dev
 - React Router DOM
 - Axios
 - Chart.js / react-chartjs-2

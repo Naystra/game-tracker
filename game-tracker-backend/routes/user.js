@@ -24,11 +24,12 @@ router.get('/me', protect, async (req, res) => {
 });
 
 
-// Upload des images
+// Upload des avatars
 router.post('/upload-avatar', protect, upload.single("avatar"), async (req, res) => {
     try {
-        const userId = req.user.id;
+        if (!req.file) return res.status(400).json({ message: "Aucun fichier envoyé" });
 
+        const userId = req.user.id;
         const user = await User.findByIdAndUpdate(userId, { avatar: req.file.filename }, { new: true });
 
         res.json(user);
@@ -63,6 +64,8 @@ router.put('/me/bio', protect, async (req, res) => {
 router.put('/me/password', protect, async (req, res) => {
     try {
         const { oldPassword, newPassword } = req.body;
+
+        if (!oldPassword) return res.status(400).json({ message: "L'ancien mot de passe est obligatoire" });
 
         if (!newPassword || newPassword.length < 6) {
             return res.status(400).json({ message: "Le nouveau mot de passe doit faire au moins 6 caractères" });
