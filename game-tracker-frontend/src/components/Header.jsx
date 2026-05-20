@@ -28,7 +28,7 @@ function Header () {
                 <img className="logo" src="/images/logo.jpg" alt="Game Tracker Logo"/>
             </div>
 
-            <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)}>
                 <span></span>
                 <span></span>
                 <span></span>

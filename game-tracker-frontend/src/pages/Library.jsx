@@ -50,6 +50,7 @@ function Library() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGames(games.filter((game) => game._id !== id));
+      toast.success("Jeu supprimé de votre collection.");
     } catch (err) {
       console.error(err);
       toast.error("Erreur lors de la suppression du jeu.");
