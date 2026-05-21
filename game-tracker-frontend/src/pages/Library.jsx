@@ -1,15 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "../styles/Library.css";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 
-
 const API_URL = import.meta.env.VITE_API_URL;
-
 
 
 
@@ -18,6 +16,8 @@ function Library() {
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("Tous");
   const [searchGames, setSearchGames] = useState("");
+  const debounceTimers = useRef({});
+
 
   const token = localStorage.getItem("token");
 
@@ -40,6 +40,25 @@ function Library() {
   useEffect(() => {
     fetchGames();
   }, []);
+
+
+
+  // Fonction pour 
+  const handleRatingChange = (id, value) => {
+    // Met à jour l'affichage immédiatement sans attendre l'API
+    setGames(games.map((g) => (g._id === id ? { ...g, rating: value } : g)));
+
+    // Annule le timer précédent de ce jeu s'il existe
+    if (debounceTimers.current[id]) {
+      clearTimeout(debounceTimers.current[id]);
+    }
+
+    // Lance l'appel API seulement 500ms après la dernière frappe
+    debounceTimers.current[id] = setTimeout(() => {
+      handleUpdate(id, "rating", Number(value));
+    }, 500);
+  };
+
 
 
   // Fonction pour delete :
@@ -120,7 +139,7 @@ function Library() {
 
                 <div className="game-field">
                   <label>Note</label>
-                  <input type="number" min="0" max="5" value={game.rating ?? ""}  onChange={(e) => handleUpdate(game._id, "rating", Number(e.target.value))}/>
+                  <input type="number" min="0" max="5" value={game.rating ?? ""}  onChange={(e) => handleRatingChange(game._id, e.target.value)}/>
                 </div>
 
               <button className="delete-btn" onClick={(e) => {e.preventDefault(); handleDelete(game._id)}}>

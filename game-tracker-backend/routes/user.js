@@ -48,7 +48,7 @@ router.put('/me/bio', protect, async (req, res) => {
 
         if (!user) return res.status(404).json({ message: "Utilisateur introuvable"});
 
-        user.bio = req.body.bio || user.bio;
+        user.bio = req.body.bio !== undefined ? req.body.bio : user.bio;
         await user.save();
 
         res.json(user);       

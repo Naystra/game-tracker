@@ -9,11 +9,19 @@ dotenv.config();
 // Création de l'application Express
 const app = express();
 
-// Active CORS pour toute les routes
-app.use(cors());
+
+// Cors 
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://game-tracker-psi.vercel.app'
+    ]
+}));
+
 
 // Middleware qui permet de lire le JSON dans req.body
 app.use(express.json());
+
 
 
 // Connexion MongoDB :
@@ -22,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.error('Erreur MongoDB :', err))
 
 
+    
 
 // Route Test :
 app.get('/', (req, res) => {

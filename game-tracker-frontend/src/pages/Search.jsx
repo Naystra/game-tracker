@@ -3,7 +3,7 @@ import "../styles/Search.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 
@@ -17,7 +17,7 @@ function Search () {
     const [search, setSearch]   = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+    
 
     
 
@@ -54,7 +54,6 @@ function Search () {
                 title: game.name,
                 rawgId: game.id,
                 status: "À faire",
-                rating: game.rating,
                 background_image: game.background_image
             },
             { headers: { Authorization: `Bearer ${token}`}}
