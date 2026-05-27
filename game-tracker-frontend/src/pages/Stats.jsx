@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 
+// Enregistrement des modules Chart.js nécessaires aux graphiques Pie et Bar
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 
@@ -37,7 +38,7 @@ const Stats = () => {
             } catch (err) {
                 console.error("Erreur fetch stats :", err.response?.data || err.message);
 
-                // Si le token est expiré ou invalide => on nettoie tout
+                // Si le token est expiré ou invalide => on nettoie tout et on redirige
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");
 
@@ -46,34 +47,35 @@ const Stats = () => {
         };
 
         fetchStats();
-    }, [navigate]);
+    }, [navigate]);   // Se re-exécute uniquement si navigate change 
 
     
 
     if (!stats) return <p>Chargement...</p>;
 
 
-    // Data pour Pie chart (status)
+    // Pie chart : répartition des jeux par statut 
     const pieData = {
         labels: ['Fini', 'En cours', 'À faire'],
         datasets: [
             {
                 label: 'jeux par statut',
+                // || 0 : sécurité si une valeur est undefined ou null
                 data: [stats.finished || 0, stats.inProgress || 0, stats.toDo || 0],
+                // Vert = Fini, Bleu = En cours, Orange = À faire
                 backgroundColor: ['#4caf50', '#2196f3', '#ff9800']
             }
         ]
     };
 
-    // Option pour Pie
     const pieOptions = {
-        responsive: true,
-        maintainAspectRatio: false
+        responsive: true,            // S'adapte à la taille du conteneur
+        maintainAspectRatio: false   // Utilise la taille définie en CSS
     };
 
 
 
-    // Data pour Bar chart (note moyenne)
+    //  Bar chart : note moyenne 
     const barData = {
         labels: ['Note moyenne'],
         datasets: [
@@ -85,11 +87,16 @@ const Stats = () => {
         ],
      };
     
-    // Option pour Bar
+    
     const barOptions = { 
         responsive: true,
         maintainAspectRatio: false,
-        scales: {y: { beginAtZero: true, max: 5 }}
+        scales: {
+            y: { 
+                beginAtZero: true,  // L'axe Y commence à 0
+                max: 5              // Maximum fixé à 5 
+            }
+        }
     };
             
 
@@ -101,7 +108,7 @@ const Stats = () => {
             <h2 className='stats-title'>Mes statistiques de jeux</h2>
             <p className='stats-total'>Total de jeux : {stats.totalGames}</p>
 
-
+            {/* Carte : camembert de répartition par statut */}
             <div className='stats-card'>
                 <h3>Répartition par status</h3>
                 <div className='chart-wrapper'>
@@ -109,6 +116,7 @@ const Stats = () => {
                 </div>
             </div>
 
+            {/* Carte : barre de note moyenne */}
             <div className='stats-card'>
                 <h3>Note moyenne : {stats.averageRating != null ? Number(stats.averageRating).toFixed(1) : 'N/A'} / 5</h3>
                 <div className='chart-wrapper average'>

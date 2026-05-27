@@ -20,9 +20,11 @@ const protect = async (req, res, next) => {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET); // Vérification du token
+            // Vérification du token
+            const decoded = jwt.verify(token, process.env.JWT_SECRET); 
 
-            req.user = await User.findById(decoded.id).select("-password"); // Récupération de l'utilisateur en BDD en excluant le password
+            // Récupération de l'utilisateur en BDD en excluant le password
+            req.user = await User.findById(decoded.id).select("-password"); 
 
             if (!req.user) {
                 return res.status(401).json({ message: "utilisateur introuvable"});
