@@ -8,10 +8,10 @@ const { validateLogin } = require('../middleware/validateAuth');
 // Route LOGIN :
 router.post('/login', validateLogin, async (req, res) => {
     try {
-        // Recupérer email et mot de passe
+        // Reçoit email et mot de passe du front
         const { email, password } = req.body;
 
-        // Chercher user dans MongoDB
+        // Chercher user dans la BDD 
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Email ou mot de passe incorrect' })
@@ -28,7 +28,7 @@ router.post('/login', validateLogin, async (req, res) => {
             expiresIn: '3d'
         });
 
-        // Renvoyer token et infos user au frontend
+        // Renvoyer le token et les infos de l'utilisateur au front
         res.status(200).json({ token, user: { id: user._id, username: user.username, email: user.email }
         });      
 

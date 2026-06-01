@@ -43,17 +43,17 @@ function Library() {
 
 
 
-  // Fonction pour 
+  // Fonction pour mettre à jour la note d'un jeu avec un délai (debounce) 
   const handleRatingChange = (id, value) => {
-    // Met à jour l'affichage immédiatement sans attendre l'API
+    // Met à jour l'affichage immédiatement avec la nouvelle note
     setGames(games.map((g) => (g._id === id ? { ...g, rating: value } : g)));
 
-    // Annule le timer précédent de ce jeu s'il existe
+    // Annule le timer précédent pour éviter plusieurs appels API 
     if (debounceTimers.current[id]) {
       clearTimeout(debounceTimers.current[id]);
     }
 
-    // Lance l'appel API seulement 500ms après la dernière frappe
+    // Attend 500ms après la dernière frappe avant d'envoyer la requête à l'API
     debounceTimers.current[id] = setTimeout(() => {
       handleUpdate(id, "rating", Number(value));
     }, 500);
@@ -61,7 +61,7 @@ function Library() {
 
 
 
-  // Fonction pour delete :
+  // Fonction pour supprimer :
   const handleDelete = async (id) => {
     if (!window.confirm("Voulez-vous vraiment supprimer ce jeu ?")) return;
     try {
@@ -77,7 +77,7 @@ function Library() {
   };
 
 
-  // Fonction update :
+  // Fonction pour modifier :
   const handleUpdate = async (id, field, value) => {
     try {
       const res = await axios.put(`${API_URL}/api/games/${id}`,{ [field]: value },

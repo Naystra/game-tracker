@@ -23,9 +23,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Réinitialise les erreurs et messages à chaque tentative
         setErrors({});
         setErrorMessage("");
 
+        // Validation côté client avant d'appeler l'API
         const validationErrors = validate();
 
         if (Object.keys(validationErrors).length > 0) {
@@ -47,18 +49,20 @@ const Login = () => {
             const data = err.response?.data;
 
             if (data?.errors) {
+                // Erreurs de validation renvoyées par le backend → affichage par champ
                 const backendErrors = {};
                 data.errors.forEach(e => {
                     backendErrors[e.param] = e.msg;
                 });
                 setErrors(backendErrors);
             } else {
+                // Erreur générale
                 setErrorMessage(data?.message || "Identifiants invalides");
             }
         }
     };
 
-
+    // Validation des champs côté client avant l'appel API
     const validate = () => {
         const newErrors = {};
 

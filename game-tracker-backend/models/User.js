@@ -12,17 +12,23 @@ const userSchema = new mongoose.Schema(
     {  timestamps: true }
 );
 
-// Hash du MDP avant sauvegarde :
+
 userSchema.pre('save', async function () {
+    // Si le password n'a pas été modifié, on ne fait rien
     if (!this.isModified('password')) return;
+
+    // Générer un salt et hasher le password avant de l'enregistrer en BDD
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
+
+
 
 // Compare MDP :
 userSchema.methods.matchPassword = function (password) {
     return bcrypt.compare(password, this.password);
 };
+
 
 
 module.exports = mongoose.model('User', userSchema);

@@ -9,10 +9,10 @@ const { validateRegister } = require('../middleware/validateAuth');
 // Route REGISTER :
 router.post('/register', validateRegister, async (req, res) => {
     try {
-        // Récupérer les données du front
+        // Reçoit les données du front
         const { username, email, password } = req.body;
 
-        // Verifier si l'utilisateur existe deja
+        // Verifier si l'email existe deja
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({ message: 'Email déjà utilisé' });
@@ -27,10 +27,8 @@ router.post('/register', validateRegister, async (req, res) => {
             expiresIn: '3d'
         });
 
-        // Renvoyer le token et les infos de l'utilisateur
-        res.status(201).json({
-            token,
-            user: { id: user._id, username: user.username, email: user.email }
+        // Renvoyer le token et les infos de l'utilisateur au front
+        res.status(201).json({token, user: { id: user._id, username: user.username, email: user.email }
         });
 
         } catch (err) {
