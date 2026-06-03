@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "react-hot-toast"
+import CookieBanner from "./components/CookieBanner";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Toaster position="top-right" />
+      <CookieBanner />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
