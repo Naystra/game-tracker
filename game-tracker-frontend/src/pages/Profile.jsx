@@ -160,8 +160,11 @@ function Profile() {
                 : `https://ui-avatars.com/api/?name=${user.username}`} 
                 alt="avatar" className="profile-avatar-large" />
 
+                
+
 
                 <div className="avatar-actions">
+                    <h2 className="profile-username">{user.username}</h2>
                     <input type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
                     <button onClick={handleUpload}>Changer l'avatar</button>
                 </div>

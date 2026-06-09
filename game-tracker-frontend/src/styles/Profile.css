@@ -23,6 +23,15 @@
 }
 
 
+.profile-username {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.8rem;
+  color: #00e5ff;
+}
+
+
 .profile-info {
   flex: 1;
   min-width: 280px;
@@ -309,6 +318,7 @@
     padding: 1.5rem;
     gap: 1rem;
   }
+
 
   .profile-info {
     min-width: unset;

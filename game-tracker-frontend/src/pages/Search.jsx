@@ -75,7 +75,7 @@ function Search () {
         <>
         <Header />
           <div className="search-container">
-            <h1 className="search-title">Rechercher un jeux </h1>
+            <h1 className="search-title">Rechercher un jeu </h1>
 
             <form className="search-form" onSubmit={handleSearch}>
                 <input type="text" placeholder="Rechercher un jeu..." value={search} onChange={(e) => setSearch(e.target.value)}/>
