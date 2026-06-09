@@ -85,7 +85,7 @@ function Profile() {
 
 
 
-    // Fonction pour upload des images
+    // Fonction pour upload des avatars
     const handleUpload = async () => {
         if (!selectedFile) return;
 

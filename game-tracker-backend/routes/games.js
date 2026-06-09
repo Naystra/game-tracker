@@ -8,16 +8,13 @@ const { validateGame, validateUpdateGame } = require('../middleware/validateGame
 //// CRUD Games ////
 
 
-// Créer un jeu (CREATE) :
+// Ajouter un jeu (CREATE) :
 router.post('/', protect, validateGame, async (req, res) => {
     try {
         const { title, rawgId, status, rating, background_image } = req.body;
 
         // Vérifier si le jeu existe déjà pour cet utilisateur
-        const gameExists = await Game.findOne({
-            rawgId,
-            user: req.user._id
-        });
+        const gameExists = await Game.findOne({ rawgId, user: req.user._id });
 
         if (gameExists) {
             return res.status(400).json({

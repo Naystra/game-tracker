@@ -18,7 +18,7 @@ router.post('/register', validateRegister, async (req, res) => {
             return res.status(400).json({ message: 'Email déjà utilisé' });
         }
 
-        // Créer le nouvel utilisateur
+        // Créer le nouvel utilisateur et l'enregistre en BDD
         const user = new User({ username, email, password });
         await user.save();
 

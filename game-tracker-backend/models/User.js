@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     {  timestamps: true }
 );
 
-// fonction qui s'exécute avant d'enregistrer un utilisateur : hash du mot de passe
+// Hook qui s'exécute avant d'enregistrer un utilisateur : hash du mot de passe
 userSchema.pre('save', async function () {
     // Si le password n'a pas été modifié, on ne fait rien
     if (!this.isModified('password')) return;

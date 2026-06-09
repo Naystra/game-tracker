@@ -92,6 +92,7 @@ function Library() {
 
   if (loading) return <p>Chargement...</p>;
 
+  
   // Filtrage par statut
   const filteredGames = games
   .filter((game) => filterStatus === "Tous" ? true : game.status === filterStatus)

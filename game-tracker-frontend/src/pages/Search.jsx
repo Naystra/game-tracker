@@ -50,14 +50,10 @@ function Search () {
         }
         
             await axios.post(`${API_URL}/api/games`,
-            {
-                title: game.name,
-                rawgId: game.id,
-                status: "À faire",
-                background_image: game.background_image
-            },
+            { title: game.name, rawgId: game.id, status: "À faire", background_image: game.background_image },
             { headers: { Authorization: `Bearer ${token}`}}
         );
+
         toast.success(`${game.name} ajouté à ta collection !`);
         } catch (err) {
             if (err.response?.status === 400) {
