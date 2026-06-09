@@ -23,7 +23,8 @@ router.get('/', protect, async (req, res) => {
 
 
        
-        // Calcule la note moyenne uniquement sur les jeux ayant une note (rating > 0), pour éviter que les jeux non notés faussent la moyenne
+        // Calcule la note moyenne uniquement sur les jeux ayant une note (rating > 0)
+        // Pour éviter que les jeux non notés faussent la moyenne
         const ratedGames = games.filter(g => g.rating > 0);
         const averageRating = ratedGames.length > 0 
         ? (ratedGames.reduce((acc, game) => acc + game.rating, 0) / ratedGames.length).toFixed(1) 

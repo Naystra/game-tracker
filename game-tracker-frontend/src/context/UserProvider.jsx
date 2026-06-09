@@ -12,16 +12,23 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [slowServer, setSlowServer] = useState(false);
     
     
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) { setLoading(false); return;} 
 
+        const timer = setTimeout(() => setSlowServer(true), 3000);
+
         axios.get(`${API_URL}/api/users/me`, { headers: { Authorization: `Bearer ${token}` }})
             .then(res => setUser(res.data))
             .catch(() => setUser(null))
-            .finally(() => setLoading(false));                
+            .finally(() => {
+                clearTimeout(timer);
+                setSlowServer(false);
+                setLoading(false);
+            });                
     }, []);
 
 
@@ -44,7 +51,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, loading, login, logout }}>
+        <UserContext.Provider value={{ user, setUser, loading, slowServer, login, logout }}>
             {children}
         </UserContext.Provider>
     );
