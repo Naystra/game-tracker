@@ -81,7 +81,7 @@ router.put('/me/password', protect, async (req, res) => {
 
         
         user.password = newPassword;
-        await user.save();
+        await user.save(); //=> Hook pre('save') bcrypt 
 
 
         res.json({ message: "Mot de passe mis à jour !" });
